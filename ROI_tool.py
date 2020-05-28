@@ -153,6 +153,7 @@ class MousePositionTracker(tk.Frame):
             im_width=self.im_width,
             my_imo=self.my_imo,
             SELECT_OPTS=self.SELECT_OPTS,
+            fps=self.fps,
             text=self.text,
             im_list=self.im_list,
         )
