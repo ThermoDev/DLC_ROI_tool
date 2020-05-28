@@ -13,10 +13,10 @@ import random
 from tkinter import simpledialog
 
 
-def track(canvas, im_height, im_width, my_imo, SELECT_OPTS, text, im_list):
+def track(canvas, im_height, im_width, my_imo, SELECT_OPTS, fps, text, im_list):
     global posn_tracker
     posn_tracker = MousePositionTracker(
-        canvas, im_height, im_width, my_imo, SELECT_OPTS, text, im_list
+        canvas, im_height, im_width, my_imo, SELECT_OPTS, fps, text, im_list
     )
     global selection_obj
     selection_obj = SelectionObject(canvas, SELECT_OPTS)
@@ -145,6 +145,16 @@ class MousePositionTracker(tk.Frame):
             min(self.top_left_Y, self.bottom_right_Y),
             image=img,
             anchor=tk.NW,
+        )
+        # Woops left this out
+        track(
+            canvas=self.canvas,
+            im_height=self.im_height,
+            im_width=self.im_width,
+            my_imo=self.my_imo,
+            SELECT_OPTS=self.SELECT_OPTS,
+            text=self.text,
+            im_list=self.im_list,
         )
 
     def bodyparts_to_ROI(self):
@@ -401,6 +411,7 @@ class Application(tk.Frame):
                     im_width=self.im_width,
                     my_imo=self.my_imo,
                     SELECT_OPTS=self.SELECT_OPTS,
+                    fps=self.fps,
                     text=self.text,
                     im_list=self.im_list,
                 )
@@ -426,6 +437,7 @@ class Application(tk.Frame):
             im_width=self.im_width,
             my_imo=self.my_imo,
             SELECT_OPTS=self.SELECT_OPTS,
+            fps=self.fps,
             text=self.text,
             im_list=self.im_list,
         )
@@ -503,7 +515,6 @@ class Application(tk.Frame):
 
         # Create mouse position tracker that uses the function.
         posn_tracker.autodraw(command=on_drag)  # Invoke the callback.
-
 
 
 if __name__ == "__main__":
